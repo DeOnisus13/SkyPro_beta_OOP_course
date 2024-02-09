@@ -25,5 +25,5 @@ def main():
             print(user_response[value])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,4 +1,11 @@
+from typing import Any
+
+
 class Vacancy:
+    """
+    Класс для работы с вакансиями
+    """
+
     def __init__(self, name: str, salary_from: int, salary_to: int, url: str, responsibility: str):
         self.name = name
         self.salary_from = self.validate_salary(salary_from)
@@ -8,21 +15,29 @@ class Vacancy:
         self.url = url
         self.responsibility = self.remove_highlight(responsibility)
 
-    def __str__(self):
-        return (f"{self.name}\n"
-                f"Зарплата от {self.salary_from} до {self.salary_to}\n"
-                f"URL - {self.url}\n"
-                f"Обязанности: {self.responsibility}\n"
-                f"------------------------------------")
+    def __str__(self) -> str:
+        return (
+            f"{self.name}\n"
+            f"Зарплата от {self.salary_from} до {self.salary_to}\n"
+            f"URL - {self.url}\n"
+            f"Обязанности: {self.responsibility}\n"
+            f"------------------------------------"
+        )
 
     @staticmethod
-    def validate_salary(salary):
+    def validate_salary(salary: int | None) -> int:
+        """
+        Функция для замены значения None на 0 в зарплате
+        """
         if salary is None:
             return 0
         return salary
 
     @staticmethod
-    def remove_highlight(responsibility):
+    def remove_highlight(responsibility: str) -> str:
+        """
+        Функция для замены текста в описании вакансии
+        """
         if isinstance(responsibility, str):
             responsibility = responsibility.replace("<highlighttext>", "")
             responsibility = responsibility.replace("</highlighttext>", "")
@@ -30,18 +45,27 @@ class Vacancy:
         return ""
 
     @classmethod
-    def init_hh(cls, data: list) -> list:
-        vacancy_list = [cls(
-            name=vacancy["name"],
-            salary_from=vacancy["salary"]["from"],
-            salary_to=vacancy["salary"]["to"],
-            url=vacancy["alternate_url"],
-            responsibility=vacancy["snippet"]["responsibility"]
-        ) for vacancy in data["items"]]
+    def init_hh(cls, data: list) -> Any:
+        """
+        Создание списка объектов класса Vacancy
+        """
+        vacancy_list = [
+            cls(
+                name=vacancy["name"],
+                salary_from=vacancy["salary"]["from"],
+                salary_to=vacancy["salary"]["to"],
+                url=vacancy["alternate_url"],
+                responsibility=vacancy["snippet"]["responsibility"],
+            )
+            for vacancy in data["items"]
+        ]
         return vacancy_list
 
     @classmethod
     def init_json(cls, data: list) -> list:
+        """
+        Создание списка для json файла
+        """
         return [cls(**item) for item in data]
 
     def __gt__(self, other):
