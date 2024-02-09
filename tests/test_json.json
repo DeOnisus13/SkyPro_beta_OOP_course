@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Python backend разработчик Middle+",
+        "salary_from": 120000,
+        "salary_to": 120000,
+        "url": "https://hh.ru/vacancy/92307003",
+        "responsibility": "Поддерживать старый и разрабатывать новый функционал."
+    },
+    {
+        "name": "Python разработчик (Django)",
+        "salary_from": 60000,
+        "salary_to": 100000,
+        "url": "https://hh.ru/vacancy/91636601",
+        "responsibility": "Разработка проектов."
+    }
+]
