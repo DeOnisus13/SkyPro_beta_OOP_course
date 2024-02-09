@@ -1,3 +1,4 @@
+from config import JSON_PATH
 from src.api import HeadHunterAPI
 from src.json_save import JSONSaver
 from src.vacancy import Vacancy
@@ -12,7 +13,7 @@ def main():
     vacancies = Vacancy.init_hh(data)
     vacancies = list(sorted(vacancies, reverse=True))
 
-    json_save = JSONSaver()
+    json_save = JSONSaver(JSON_PATH)
     json_save.write_data(vacancies)
 
     request_response = json_save.get_data(filter_words)

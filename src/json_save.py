@@ -24,8 +24,8 @@ class JSONSaver(AbstractSaver):
     Класс для работы с JSON файлами
     """
 
-    def __init__(self):
-        self.path = JSON_PATH
+    def __init__(self, path: str):
+        self.path = path
 
     def write_data(self, data: list | Vacancy) -> None:
         """
