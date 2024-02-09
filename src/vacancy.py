@@ -12,7 +12,8 @@ class Vacancy:
         return (f"{self.name}\n"
                 f"Зарплата от {self.salary_from} до {self.salary_to}\n"
                 f"URL - {self.url}\n"
-                f"Обязанности: {self.responsibility}")
+                f"Обязанности: {self.responsibility}\n"
+                f"------------------------------------")
 
     @staticmethod
     def validate_salary(salary):
@@ -27,3 +28,24 @@ class Vacancy:
             responsibility = responsibility.replace("</highlighttext>", "")
             return responsibility
         return ""
+
+    @classmethod
+    def init_hh(cls, data: list) -> list:
+        vacancy_list = [cls(
+            name=vacancy["name"],
+            salary_from=vacancy["salary"]["from"],
+            salary_to=vacancy["salary"]["to"],
+            url=vacancy["alternate_url"],
+            responsibility=vacancy["snippet"]["responsibility"]
+        ) for vacancy in data["items"]]
+        return vacancy_list
+
+    @classmethod
+    def init_json(cls, data: list) -> list:
+        return [cls(**item) for item in data]
+
+    def __gt__(self, other):
+        return self.salary_to > other.salary_to
+
+    def __lt__(self, other):
+        return self.salary_to < other.salary_to

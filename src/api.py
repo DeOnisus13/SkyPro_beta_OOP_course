@@ -20,7 +20,7 @@ class HeadHunterAPI(API):
     def __init__(self, query: str):
         self.query = query
 
-    def get_response(self) -> dict:
+    def get_response(self) -> list[dict]:
         """
         Функция для получения данных от API HeadHunter по заданным параметрам
         """
